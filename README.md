@@ -1,2 +1,2 @@
-# Kaggle-Titanic-ML-Competition2
+# Kaggle-Titanic-ML-Competition
 My second ML project: Titanic survival classification by kaggle
