@@ -181,7 +181,3 @@ write.csv(submission4, "submission4.csv", row.names = F)
 modelcompare
 ptm_Skript_end <- proc.time()-ptm_Skript_beginn
 ptm_Skript_end[[3]]
-
-
-# since my accuracy is very good, but my kaggle score is only "OK" I think my fscore (related on precision and recall) isn't that good
-# hopefully I can get a better solution to improve my kaggle score
