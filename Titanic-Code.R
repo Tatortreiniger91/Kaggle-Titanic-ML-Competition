@@ -19,7 +19,7 @@ library(rpart)
 ptm_Skript_beginn <- proc.time()
 
 # set path and working directory
-mainDir <- "C:/Users/AVogl/Desktop/Kaggle/Titanic"
+mainDir <- "path/Kaggle/Titanic"
 setwd(file.path(mainDir))
 
 # load train, test and testsubmission datasets
