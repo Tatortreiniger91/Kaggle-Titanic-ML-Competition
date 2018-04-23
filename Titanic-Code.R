@@ -9,24 +9,25 @@ library(caTools)
 library(pROC)
 library(rpart)
 library(gbm)
-
+library(e1071)
+library(rpart)
 
 # clean environment
-rm(list=ls())
+#rm(list=ls())
 
 # take the time
 ptm_Skript_beginn <- proc.time()
 
 # set path and working directory
-mainDir <- "path/Kaggle/Titanic"
+mainDir <- "C:/Users/AVogl/Desktop/Kaggle/Titanic"
 setwd(file.path(mainDir))
 
 # load train, test and testsubmission datasets
 train <- read.csv("train.csv", header = T)
 test <- read.csv("test.csv", header = T)
-
+dir()
 # load testsubmission
-testsubmission <- read.csv("sample_submission.csv", header = T)
+testsubmission <- read.csv("gender_submission.csv", header = T)
 
 #safe the PassengerId for later submissions
 PassengerId <- test$PassengerId
@@ -79,7 +80,7 @@ test2 <- whole[892:1309,]
 summary(train2)
 summary(test2)
 
-modelcompare <- numeric(4)
+modelcompare <- numeric(5)
 
 ##############Models##############
 set.seed(123)
@@ -175,7 +176,19 @@ accuracy <- mean(Survived == testsubmission$Survived)
 modelcompare[4] <- accuracy
 submission4 <- data.frame(PassengerId, Survived)
 write.csv(submission4, "submission4.csv", row.names = F)
-# submission5 kaggle score: 0.77511
+# submission4 kaggle score: 0.77511
+
+
+set.seed(123)
+svm.model <- svm(Survived ~ ., data = train2)
+svm.pred <- predict(svm.model, test2[,-1], type="class")
+Survived <- ifelse(svm.pred > 0.5, 1, 0)
+table(Survived, testsubmission$Survived)
+accuracy <- mean(Survived == testsubmission$Survived)
+modelcompare[5] <- accuracy
+submission5 <- data.frame(PassengerId, Survived)
+write.csv(submission5, "submission5.csv", row.names = F)
+# submission5 kaggle score: 0.79425
 
 # check the skript running time
 modelcompare
