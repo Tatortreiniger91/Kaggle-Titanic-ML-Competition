@@ -16,7 +16,7 @@ library(rpart)
 #rm(list=ls())
 
 # take the time
-ptm_Skript_beginn <- proc.time()
+ptm_script_beginn <- proc.time()
 
 # set path and working directory
 mainDir <- "path/Kaggle/Titanic"
@@ -25,7 +25,7 @@ setwd(file.path(mainDir))
 # load train, test and testsubmission datasets
 train <- read.csv("train.csv", header = T)
 test <- read.csv("test.csv", header = T)
-dir()
+
 # load testsubmission
 testsubmission <- read.csv("gender_submission.csv", header = T)
 
@@ -80,6 +80,7 @@ test2 <- whole[892:1309,]
 summary(train2)
 summary(test2)
 
+#create vector to compare rmse from different models
 modelcompare <- numeric(5)
 
 ##############Models##############
@@ -190,7 +191,9 @@ submission5 <- data.frame(PassengerId, Survived)
 write.csv(submission5, "submission5.csv", row.names = F)
 # submission5 kaggle score: 0.79425
 
-# check the skript running time
+#compare rmse from different models
 modelcompare
-ptm_Skript_end <- proc.time()-ptm_Skript_beginn
-ptm_Skript_end[[3]]
+
+# check the script running time
+ptm_script_end <- proc.time()-ptm_script_beginn
+ptm_script_end[[3]]
